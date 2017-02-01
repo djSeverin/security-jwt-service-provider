@@ -2,6 +2,7 @@
 
 namespace Silex\Component\Security\Core\Encoder;
 
+use Firebase\JWT\JWT;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class JWTEncoder implements TokenEncoderInterface
@@ -49,7 +50,8 @@ class JWTEncoder implements TokenEncoderInterface
     {
         $data['exp'] = time() + $this->lifeTime;
 
-       return \JWT::encode($data, $this->secretKey);
+        return JWT::encode($data, $this->secretKey);
+
     }
 
     /**
@@ -63,7 +65,7 @@ class JWTEncoder implements TokenEncoderInterface
     public function decode($token)
     {
         try {
-            $data = \JWT::decode($token, $this->secretKey, $this->allowed_algs);
+            $data = JWT::decode($token, $this->secretKey, $this->allowed_algs);
         } catch (\UnexpectedValueException $e) {
             throw new \UnexpectedValueException($e->getMessage());
         } catch (\DomainException $e) {
