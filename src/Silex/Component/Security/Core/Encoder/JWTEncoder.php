@@ -58,7 +58,7 @@ class JWTEncoder implements TokenEncoderInterface
      * Token for decoding
      *
      * @param string $token
-     * @return array
+     * @return Object
      *
      * @throws AccessDeniedException
      */
